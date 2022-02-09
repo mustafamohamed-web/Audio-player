@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Song from "./components/Song";
 import Player from "./components/Player";
 import "./styles/app.scss";
+import data from "./data/data";
 
 function App() {
+  const [audio, setAudio] = useState(data());
+  const [currentSong, setCurrentSong] = useState(audio[0]);
+  const [active, setActive] = useState(false);
+
   return (
     <div className="App">
       <h1>Music Player</h1>
-      <Song />
-      <Player />
+      <Song currentSong={currentSong} />
+      <Player currentSong={currentSong} active={active} setActive={setActive} />
     </div>
   );
 }
