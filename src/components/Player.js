@@ -4,6 +4,7 @@ import {
   faPlay,
   faAngleRight,
   faAngleLeft,
+  faPause,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Player = ({ currentSong, active, setActive }) => {
@@ -33,15 +34,27 @@ const Player = ({ currentSong, active, setActive }) => {
   };
 
   const [audioInfo, setAudioInfo] = useState({
-    currentTime: null,
-    duration: null,
+    currentTime: 0,
+    duration: 0,
   });
+
+  const dragInput = (e) => {
+    audioRef.current.currentTime = e.target.value;
+    setAudioInfo({ ...audioInfo, currentTime: e.target.value });
+  };
 
   return (
     <div className="player">
       <div className="time-control">
         <p>{getTime(audioInfo.currentTime)}</p>
-        <input type="range" name="" id="" />
+        <input
+          type="range"
+          name=""
+          value={audioInfo.currentTime}
+          min={0}
+          max={audioInfo.duration}
+          onChange={dragInput}
+        />
         <p>{getTime(audioInfo.duration)}</p>
       </div>
       <div className="play-control">
@@ -50,7 +63,7 @@ const Player = ({ currentSong, active, setActive }) => {
           onClick={playSongHandler}
           className="play"
           size="2x"
-          icon={faPlay}
+          icon={active ? faPause : faPlay}
         />
         <FontAwesomeIcon
           className="skip-forward"
