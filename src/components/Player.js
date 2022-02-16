@@ -45,7 +45,7 @@ const Player = ({
           name=""
           value={audioInfo.currentTime}
           min={0}
-          max={audioInfo.duration}
+          max={audioInfo.duration || 0}
           onChange={dragInput}
         />
         <p>{getTime(audioInfo.duration)}</p>
